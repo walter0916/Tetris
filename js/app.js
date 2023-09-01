@@ -37,9 +37,10 @@ const tetrominos = {
     color: 'red'
   },
 }
-console.log(tetrominos)
+
 /*---------------------------- Variables (state) ----------------------------*/
 
+const randomTetromino = getRandomTetromino()
 
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
@@ -48,23 +49,32 @@ const board = document.querySelector('.tetris-board')
 
 
 /*-------------------------------- Functions --------------------------------*/
-function init(){
-  createBoard()
+// intitialization function to start the game, calls functions to create the board and render 
+function init() {
   render()
 }
-
+init()
 function render() {
-
+  createBoard()
 }
 
 function createBoard() {
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
       const cell = document.createElement('div')
-      cell.classList.add('cell')
+      cell.classList.add('cell', `row-${row}`, `col-${col}`)
       board.appendChild(cell)
       console.log('hi')
     }
   } 
 }
-createBoard()
+
+function getRandomTetromino() {
+  const tetrominoKeys = Object.keys(tetrominos);
+  const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)];
+  return tetrominos[randomKey];
+}
+
+function updateBoard(tetromino, position, tetrominoColor) {
+  
+}

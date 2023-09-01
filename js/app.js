@@ -48,6 +48,14 @@ const board = document.querySelector('.tetris-board')
 
 
 /*-------------------------------- Functions --------------------------------*/
+function init(){
+  createBoard()
+  render()
+}
+
+function render() {
+
+}
 
 function createBoard() {
   for (let row = 0; row < rows; row++) {

@@ -1,11 +1,11 @@
 /*-------------------------------- Constants --------------------------------*/
-
-
+const rows = 20 
+const columns = 10
 /*---------------------------- Variables (state) ----------------------------*/
 
 
 /*------------------------ Cached Element References ------------------------*/
-
+const board = document.querySelector('.tetris-board')
 
 /*----------------------------- Event Listeners -----------------------------*/
 

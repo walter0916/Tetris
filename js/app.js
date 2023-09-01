@@ -52,10 +52,15 @@ const board = document.querySelector('.tetris-board')
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
   render()
+  createBoard()
+  console.log('init works')
 }
 init()
 function render() {
-  createBoard()
+  const initialPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  getRandomTetromino()
+  updateBoard(randomTetromino, initialPosition, randomTetromino.color)
+  console.log('render works')
 }
 
 function createBoard() {
@@ -70,9 +75,10 @@ function createBoard() {
 }
 
 function getRandomTetromino() {
-  const tetrominoKeys = Object.keys(tetrominos);
-  const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)];
-  return tetrominos[randomKey];
+  const tetrominoKeys = Object.keys(tetrominos)
+  const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
+  console.log('randomizer works')
+  return tetrominos[randomKey]
 }
 
 function updateBoard(tetromino, position, tetrominoColor) {

@@ -38,9 +38,9 @@ const tetrominos = {
   },
 }
 
-/*---------------------------- Variables (state) ----------------------------*/
-
-const randomTetromino = getRandomTetromino()
+/*---------------------------- Variables (state) 
+----------------------------*/
+const currentTetromino = getRandomTetromino()
 
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
@@ -54,12 +54,13 @@ function init() {
   render()
   createBoard()
   console.log('init works')
+  startGameLoop()
 }
 init()
 function render() {
-  const initialPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  const currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   getRandomTetromino()
-  updateBoard(randomTetromino, initialPosition, randomTetromino.color)
+  updateBoard(currentTetromino, currentPosition, currentTetromino.Color)
   console.log('render works')
 }
 
@@ -74,6 +75,25 @@ function createBoard() {
   } 
 }
 
+function startGameLoop() {
+  gameIntervalId = setInterval(() => {
+    if (canMoveDown(currentTetromino, currentPosition)) {
+      currentPosition.row++ 
+      clearPreviousPosition(currentTetromino, currentPosition)
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+    } else {
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
+      currentTetromino = getRandomTetromino()
+      if (isGameover(currentTetromino, currentPosition)) {
+        clearInterval(gameIntervalId)
+        return
+      }
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+    }
+  }, 1000)
+}
+
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
   const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
@@ -82,5 +102,9 @@ function getRandomTetromino() {
 }
 
 function updateBoard(tetromino, position, tetrominoColor) {
+  
+}
+
+function canMoveDown() {
   
 }

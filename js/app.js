@@ -40,7 +40,11 @@ const tetrominos = {
 
 /*---------------------------- Variables (state) 
 ----------------------------*/
-const currentTetromino = getRandomTetromino()
+let currentTetromino = getRandomTetromino()
+
+let currentPosition 
+let gameIntervalId 
+
 
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
@@ -58,7 +62,7 @@ function init() {
 }
 init()
 function render() {
-  const currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   getRandomTetromino()
   updateBoard(currentTetromino, currentPosition, currentTetromino.Color)
   console.log('render works')
@@ -75,7 +79,7 @@ function createBoard() {
   } 
 }
 
-function startGameLoop() {
+ function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
       currentPosition.row++ 
@@ -85,7 +89,7 @@ function startGameLoop() {
       updateBoard(currentTetromino, currentPosition, currentTetromino.color)
       currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
       currentTetromino = getRandomTetromino()
-      if (isGameover(currentTetromino, currentPosition)) {
+      if (isGameOver(currentTetromino, currentPosition)) {
         clearInterval(gameIntervalId)
         return
       }
@@ -105,6 +109,20 @@ function updateBoard(tetromino, position, tetrominoColor) {
   
 }
 
-function canMoveDown() {
-  
+function canMoveDown(currentTetromino, currentPosition) {
+  for (let row = 0; row < currentTetromino.shape.length; row++) {
+    for (let col = 0; col < currentTetromino.shape[row].length; col++) {
+      if (currentTetromino.shape[row][col] === 1) {
+        const newRow = currentPosition.row + row + 1 
+        const newCol = currentPosition.col + col
+        if (newRow >= rows || newCol < 0 || newCol >= columns) {
+          return false 
+        }
+        const cell = document.querySelector(`.row-${newRow}.col-${newCol}`)
+        if (cell && cell.classList.contains(`occupied`)){
+          return false
+        }
+      }
+    }
+  }
 }

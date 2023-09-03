@@ -126,3 +126,11 @@ function canMoveDown(currentTetromino, currentPosition) {
     }
   }
 }
+
+function startSpawnInterval() {
+  spawnIntervalId = setInterval(() => {
+    let newTetromino = getRandomTetromino()
+    const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+    updateBoard(newTetromino, spawnPosition, newTetromino.color)
+  }, 5000)
+}

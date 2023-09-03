@@ -79,7 +79,7 @@ function createBoard() {
   } 
 }
 
- function startGameLoop() {
+//  function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
       currentPosition.row++ 
@@ -133,4 +133,29 @@ function startSpawnInterval() {
     const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
     updateBoard(newTetromino, spawnPosition, newTetromino.color)
   }, 5000)
+}
+
+function isGameOver(tetromino, position) {
+  for (let row = 0; row < tetromino.shape.length; row++) {
+    for (let col = 0; col < tetromino.shape[row].length; col++) {
+      if (tetromino.shape[row][col] === 1) {
+        const boardRow = position.row + row
+        const boardCol = position.col + col
+        if (
+          boardRow < 0 ||                 
+          boardRow >= rows ||             
+          boardCol < 0 ||                  
+          boardCol >= columns ||         
+          isCellOccupied(boardRow, boardCol)  
+        ) {
+          return true
+        }
+      }
+    }
+  }
+
+  return false
+}
+function isCellOccupied(row, col) {
+
 }

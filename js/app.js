@@ -157,5 +157,6 @@ function isGameOver(tetromino, position) {
   return false
 }
 function isCellOccupied(row, col) {
-
+  const cell = document.querySelector(`.row-${row}.col-${col}`)
+  return cell && parseInt(cell.textContent) === 1
 }

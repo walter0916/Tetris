@@ -37,7 +37,7 @@ const tetrominos = {
     color: 'red'
   },
 }
-
+const tetrominoQueue = []
 /*---------------------------- Variables (state) 
 ----------------------------*/
 let currentTetromino = getRandomTetromino()
@@ -55,18 +55,16 @@ const board = document.querySelector('.tetris-board')
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
-  render()
   createBoard()
-  console.log('init works')
   startGameLoop()
   startSpawnInterval()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
+  render()
 }
 init()
 function render() {
   // currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   updateBoard(currentTetromino, currentPosition, currentTetromino.Color)
-  console.log('render works')
 }
 
 function createBoard() {
@@ -88,13 +86,13 @@ function startGameLoop() {
       updateBoard(currentTetromino, currentPosition, currentTetromino.color)
     } else {
       updateBoard(currentTetromino, currentPosition, currentTetromino.color)
-      currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
-      currentTetromino = getRandomTetromino()
+      // currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
+      // currentTetromino = getRandomTetromino()
       if (isGameOver(currentTetromino, currentPosition)) {
         clearInterval(gameIntervalId)
         return
       }
-      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      // updateBoard(currentTetromino, currentPosition, currentTetromino.color)
     }
   }, 1000)
 }
@@ -106,8 +104,31 @@ function getRandomTetromino() {
   return tetrominos[randomKey]
 }
 
+
+
+
 function updateBoard(tetromino, position, tetrominoColor) {
-  
+  // Clear the previous position of the tetromino
+  clearPreviousPosition(tetromino, position);
+
+  // Iterate through the tetromino's shape
+  for (let row = 0; row < tetromino.shape.length; row++) {
+    for (let col = 0; col < tetromino.shape[row].length; col++) {
+      if (tetromino.shape[row][col] === 1) {
+        // Calculate the position of the cell on the game board
+        const boardRow = position.row + row;
+        const boardCol = position.col + col;
+
+        // Find the corresponding cell element in the DOM
+        const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`);
+
+        // Update the cell's class to set the background color
+        if (cell) {
+          cell.style.backgroundColor = tetrominoColor;
+        }
+      }
+    }
+  }
 }
 
 function canMoveDown(currentTetromino, currentPosition) {

@@ -80,7 +80,7 @@ function createBoard() {
   } 
 }
 
- function startGameLoop() {
+function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
       currentPosition.row++ 
@@ -163,4 +163,19 @@ function isGameOver(tetromino, position) {
 function isCellOccupied(row, col) {
   const cell = document.querySelector(`.row-${row}.col-${col}`)
   return cell && parseInt(cell.textContent) === 1
+}
+
+function clearPreviousPosition(tetromino, position) {
+  for (let row = 0; row < tetromino.shape.length; row++) {
+    for (let col = 0; col < tetromino.shape[row].length; col++) {
+      if (tetromino.shape[row][col] === 1) {
+        const boardRow = position.row + row
+        const boardCol = position.col + col
+        const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`);
+        if (cell) {
+          cell.textContent = 0;
+        }
+      }
+    }
+  }
 }

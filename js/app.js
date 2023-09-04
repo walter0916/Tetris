@@ -108,6 +108,10 @@ function queueRandomeTetromino () {
   tetrominoQueue.push(getRandomTetromino())
 }
 
+function setCurrentTetrominoFromQueue() {
+  currentTetromino = tetrominoQueue.shift()
+  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
+}
 
 function updateBoard(tetromino, position, tetrominoColor) {
   // Clear the previous position of the tetromino
@@ -196,7 +200,7 @@ function clearPreviousPosition(tetromino, position) {
         const boardCol = position.col + col
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`);
         if (cell) {
-          cell.textContent = 0;
+          cell.backgroundColor = '';
         }
       }
     }

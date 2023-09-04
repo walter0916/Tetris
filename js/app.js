@@ -38,6 +38,7 @@ const tetrominos = {
   },
 }
 const tetrominoQueue = []
+console.log(tetrominoQueue)
 /*---------------------------- Variables (state) 
 ----------------------------*/
 let currentTetromino = getRandomTetromino()
@@ -57,7 +58,7 @@ const board = document.querySelector('.tetris-board')
 function init() {
   createBoard()
   startGameLoop()
-  startSpawnInterval()
+  // startSpawnInterval()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
   render()
 }
@@ -93,10 +94,11 @@ function startGameLoop() {
         return
       }
       // updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      setCurrentTetrominoFromQueue()
     }
   }, 1000)
 }
-
+setInterval(queueRandomeTetromino, 5000)
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
   const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
@@ -155,16 +157,16 @@ function canMoveDown(currentTetromino, currentPosition) {
   } return true
 }
 
-function startSpawnInterval() {
-  spawnIntervalId = setInterval(() => {
+// function startSpawnInterval() {
+//   spawnIntervalId = setInterval(() => {
   
-    let newTetromino = getRandomTetromino()
-    const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
-    currentTetromino = newTetromino
-    currentPosition = spawnPosition
-    updateBoard(newTetromino, spawnPosition, newTetromino.color)
-  }, 5000)
-}
+//     let newTetromino = getRandomTetromino()
+//     const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+//     currentTetromino = newTetromino
+//     currentPosition = spawnPosition
+//     updateBoard(newTetromino, spawnPosition, newTetromino.color)
+//   }, 5000)
+// }
 
 function isGameOver(tetromino, position) {
   for (let row = 0; row < tetromino.shape.length; row++) {

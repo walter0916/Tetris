@@ -44,7 +44,7 @@ let currentTetromino = getRandomTetromino()
 
 let currentPosition 
 let gameIntervalId 
-
+let spawnIntervalId
 
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
@@ -59,11 +59,12 @@ function init() {
   createBoard()
   console.log('init works')
   startGameLoop()
+  startSpawnInterval()
+  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
 }
 init()
 function render() {
-  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
-  getRandomTetromino()
+  // currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   updateBoard(currentTetromino, currentPosition, currentTetromino.Color)
   console.log('render works')
 }
@@ -79,7 +80,7 @@ function createBoard() {
   } 
 }
 
-//  function startGameLoop() {
+ function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
       currentPosition.row++ 
@@ -124,13 +125,16 @@ function canMoveDown(currentTetromino, currentPosition) {
         }
       }
     }
-  }
+  } return true
 }
 
 function startSpawnInterval() {
   spawnIntervalId = setInterval(() => {
+  
     let newTetromino = getRandomTetromino()
     const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+    currentTetromino = newTetromino
+    currentPosition = spawnPosition
     updateBoard(newTetromino, spawnPosition, newTetromino.color)
   }, 5000)
 }

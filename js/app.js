@@ -104,7 +104,9 @@ function getRandomTetromino() {
   return tetrominos[randomKey]
 }
 
-
+function queueRandomeTetromino () {
+  tetrominoQueue.push(getRandomTetromino())
+}
 
 
 function updateBoard(tetromino, position, tetrominoColor) {

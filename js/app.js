@@ -43,7 +43,6 @@ const tetrominoQueue = []
 console.log(tetrominoQueue)
 /*---------------------------- Variables ----------------------------*/
 let currentTetromino = getRandomTetromino()
-
 let currentPosition 
 let gameIntervalId 
 let spawnIntervalId
@@ -145,7 +144,6 @@ function canMoveDown(currentTetromino, currentPosition) {
       if (currentTetromino.shape[row][col] === 1) {
         const newRow = currentPosition.row + row + 1
         const newCol = currentPosition.col + col
-        
         if (
           newRow >= rows ||             // Check if it's at the bottom of the board
           newCol < 0 || newCol >= columns || // Check if it's out of bounds horizontally
@@ -221,4 +219,42 @@ function handleKeyPress(event) {
   }
 }
 
+function canMoveLeft(currentTetromino, currentPosition) {
+  for (let row = 0; row < currentTetromino.shape.length; row++) {
+    for (let col = 0; col < currentTetromino.shape[row].length; col++) {
+      if (currentTetromino.shape[row][col] === 1) {
+        const newRow = currentPosition.row + row
+        const newCol = currentPosition.col + col - 1
 
+        if (
+          newRow >= 0 &&               // Check if it's within the top boundary
+          newCol >= 0 &&               // Check if it's within the left boundary
+          !isCellOccupied(newRow, newCol) // Check if the cell is not occupied
+        ) {
+          return true
+        }
+        return false
+      }
+    }
+  }
+}
+
+function canMoveRight(currentTetromino, currentPosition) {
+  for (let row = 0; row < currentTetromino.shape.length; row++) {
+    for (let col = 0; col < currentTetromino.shape[row].length; col++) {
+      if (currentTetromino.shape[row][col] === 1) {
+        const newRow = currentPosition.row + row
+        const newCol = currentPosition.col + col + 1
+
+        if (
+          newRow >= 0 &&               // Check if it's within the top boundary
+          newCol < columns &&          // Check if it's within the right boundary
+          !isCellOccupied(newRow, newCol) // Check if the cell is not occupied
+        ) {
+          return true
+        }
+        return false
+      }
+    }
+  }
+}

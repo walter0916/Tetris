@@ -41,6 +41,8 @@ const tetrominos = {
 }
 const tetrominoQueue = []
 console.log(tetrominoQueue)
+const gameBoard = Array.from({ length: rows }, () => Array(columns).fill(0));
+
 /*---------------------------- Variables ----------------------------*/
 let currentTetromino = getRandomTetromino()
 let currentPosition 
@@ -258,3 +260,5 @@ function canMoveRight(currentTetromino, currentPosition) {
     }
   }
 }
+
+

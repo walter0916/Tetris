@@ -200,3 +200,21 @@ function clearPreviousPosition(tetromino, position) {
   }
 }
 
+function handleKeyPress(event) {
+  switch (event.key) {
+    case 'ArrowLeft' :
+      // Check if the tetromino can move left
+      if (canMoveLeft(currentTetromino, currentPosition)) {
+        currentPosition.col--
+        updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      }
+      break
+    case 'ArrowRight':
+      // Check if the tetromino can move right
+      if (canMoveRight(currentTetromino, currentPosition)) {
+        currentPosition.col++
+        updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      }
+      break
+  }
+}

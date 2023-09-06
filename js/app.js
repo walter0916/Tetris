@@ -205,6 +205,7 @@ function handleKeyPress(event) {
     case 'ArrowLeft' :
       // Check if the tetromino can move left
       if (canMoveLeft(currentTetromino, currentPosition)) {
+        clearPreviousPosition(currentTetromino,currentPosition)
         currentPosition.col--
         updateBoard(currentTetromino, currentPosition, currentTetromino.color)
       }
@@ -212,9 +213,12 @@ function handleKeyPress(event) {
     case 'ArrowRight':
       // Check if the tetromino can move right
       if (canMoveRight(currentTetromino, currentPosition)) {
+        clearPreviousPosition(currentTetromino,currentPosition)
         currentPosition.col++
         updateBoard(currentTetromino, currentPosition, currentTetromino.color)
       }
       break
   }
 }
+
+

@@ -64,7 +64,10 @@ function init() {
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
   render()
 }
+
 init()
+
+
 function render() {
   // currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   updateBoard(currentTetromino, currentPosition, currentTetromino.Color)
@@ -84,11 +87,11 @@ function createBoard() {
 function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
-      currentPosition.row++ 
       clearPreviousPosition(currentTetromino, currentPosition)
+      currentPosition.row++ 
       updateBoard(currentTetromino, currentPosition, currentTetromino.color)
     } else {
-      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
+      // updateBoard(currentTetromino, currentPosition, currentTetromino.color)
       // currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
       // currentTetromino = getRandomTetromino()
       if (isGameOver(currentTetromino, currentPosition)) {
@@ -101,6 +104,7 @@ function startGameLoop() {
   }, 1000)
 }
 setInterval(queueRandomeTetromino, 5000)
+
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
   const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
@@ -145,19 +149,42 @@ function canMoveDown(currentTetromino, currentPosition) {
   for (let row = 0; row < currentTetromino.shape.length; row++) {
     for (let col = 0; col < currentTetromino.shape[row].length; col++) {
       if (currentTetromino.shape[row][col] === 1) {
-        const newRow = currentPosition.row + row + 1 
-        const newCol = currentPosition.col + col
-        if (newRow >= rows || newCol < 0 || newCol >= columns) {
-          return false 
-        }
-        const cell = document.querySelector(`.row-${newRow}.col-${newCol}`)
-        if (cell && cell.classList.contains(`occupied`)){
-          return false
+        const newRow = currentPosition.row + row + 1;
+        const newCol = currentPosition.col + col;
+        
+        if (
+          newRow >= rows ||             // Check if it's at the bottom of the board
+          newCol < 0 || newCol >= columns || // Check if it's out of bounds horizontally
+          isCellOccupied(newRow, newCol)  // Check if the cell is occupied
+        ) {
+          return false;
         }
       }
     }
-  } return true
+  }
+  return true;
 }
+
+
+
+
+// function canMoveDown(currentTetromino, currentPosition) {
+//   for (let row = 0; row < currentTetromino.shape.length; row++) {
+//     for (let col = 0; col < currentTetromino.shape[row].length; col++) {
+//       if (currentTetromino.shape[row][col] === 1) {
+//         const newRow = currentPosition.row + row + 1 
+//         const newCol = currentPosition.col + col
+//         if (newRow >= rows || newCol < 0 || newCol >= columns) {
+//           return false 
+//         }
+//         const cell = document.querySelector(`.row-${newRow}.col-${newCol}`)
+//         if (cell && cell.classList.contains(`occupied`)){
+//           return false
+//         }
+//       }
+//     }
+//   } return true
+// }
 
 // function startSpawnInterval() {
 //   spawnIntervalId = setInterval(() => {
@@ -204,7 +231,7 @@ function clearPreviousPosition(tetromino, position) {
         const boardCol = position.col + col
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`);
         if (cell) {
-          cell.backgroundColor = '';
+          cell.style.backgroundColor = '';
         }
       }
     }

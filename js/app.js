@@ -1,3 +1,8 @@
+//-------------------------------- Class constructor---------------------------/
+
+
+
+
 /*-------------------------------- Constants --------------------------------*/
 const rows = 20 
 const columns = 10
@@ -38,7 +43,7 @@ const tetrominos = {
   },
 }
 const tetrominoQueue = []
-console.log(tetrominoQueue)
+
 /*---------------------------- Variables (state) 
 ----------------------------*/
 let currentTetromino = getRandomTetromino()
@@ -55,12 +60,12 @@ const board = document.querySelector('.tetris-board')
 
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
-function init() {
+// function init() {
   createBoard()
   startGameLoop()
   // startSpawnInterval()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
-  render()
+  render() //render the game
 }
 init()
 function render() {
@@ -81,6 +86,7 @@ function createBoard() {
 
 function startGameLoop() {
   gameIntervalId = setInterval(() => {
+    // check if a piece can move down without colliding with another piece
     if (canMoveDown(currentTetromino, currentPosition)) {
       currentPosition.row++ 
       clearPreviousPosition(currentTetromino, currentPosition)
@@ -99,17 +105,21 @@ function startGameLoop() {
   }, 1000)
 }
 setInterval(queueRandomeTetromino, 5000)
+
+// function to randomize a tetromino piece from the object tetrominos
 function getRandomTetromino() {
+  // this is taking the keys of each array of the object tetrominos and storing it in another array  
   const tetrominoKeys = Object.keys(tetrominos)
   const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
   console.log('randomizer works')
   return tetrominos[randomKey]
 }
-
+// taking the randomtetromino and storing it in an array 
 function queueRandomeTetromino () {
   tetrominoQueue.push(getRandomTetromino())
 }
 
+// takes the first tetromino from the array and pushes it to the currentTetromino variable
 function setCurrentTetrominoFromQueue() {
   currentTetromino = tetrominoQueue.shift()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 };
@@ -117,7 +127,7 @@ function setCurrentTetrominoFromQueue() {
 
 function updateBoard(tetromino, position, tetrominoColor) {
   // Clear the previous position of the tetromino
-  clearPreviousPosition(tetromino, position);
+  clearPreviousPosition(tetromino, position, tetrominoColor);
 
   // Iterate through the tetromino's shape
   for (let row = 0; row < tetromino.shape.length; row++) {
@@ -157,16 +167,6 @@ function canMoveDown(currentTetromino, currentPosition) {
   } return true
 }
 
-// function startSpawnInterval() {
-//   spawnIntervalId = setInterval(() => {
-  
-//     let newTetromino = getRandomTetromino()
-//     const spawnPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
-//     currentTetromino = newTetromino
-//     currentPosition = spawnPosition
-//     updateBoard(newTetromino, spawnPosition, newTetromino.color)
-//   }, 5000)
-// }
 
 function isGameOver(tetromino, position) {
   for (let row = 0; row < tetromino.shape.length; row++) {
@@ -202,9 +202,37 @@ function clearPreviousPosition(tetromino, position) {
         const boardCol = position.col + col
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`);
         if (cell) {
-          cell.backgroundColor = '';
+          cell.style.backgroundColor = '';
         }
       }
     }
   }
 }
+
+// function clearPreviousPosition(tetromino, position) {
+//   for (let row = 0; row < tetromino.shape.length; row++) {
+//     for (let col = 0; col < tetromino.shape[row].length; col++) {
+//       if (tetromino.shape[row][col] === 1) {
+//         const boardRow = position.row + row
+//         const boardCol = position.col + col
+//         gameBoard[boardRow][boardCol] = 0; // 
+//       }
+//     }
+//   }
+// }
+
+// function updateBoard() {
+//   // Iterate through the game board array
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col < columns; col++) {
+//       const cell = document.querySelector(`.row-${row}.col-${col}`);
+//       if (gameBoard[row][col] === 1) {
+//         // Cell is occupied, set background color
+//         cell.style.backgroundColor = currentTetromino.color
+//       } else {
+//         // Cell is unoccupied, clear background color
+//         cell.style.backgroundColor = ''
+//       }
+//     }
+//   }
+// }

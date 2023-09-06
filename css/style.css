@@ -13,3 +13,6 @@ body {
   grid-template-rows: repeat(20, 30px);
   border: 2px solid #fff;
 }
+h1 {
+  font-family: 'Press Start 2P', cursive;
+}

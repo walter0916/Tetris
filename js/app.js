@@ -41,7 +41,16 @@ const tetrominos = {
 }
 const tetrominoQueue = []
 console.log(tetrominoQueue)
+
 const gameBoard = Array.from({ length: rows }, () => Array(columns).fill(0))
+
+const scoring = {
+  single: 100,  // Points for clearing a single row
+  double: 300,  // Points for clearing two rows at once
+  triple: 500,  // Points for clearing three rows at once
+  tetris: 800   // Points for clearing four rows at once 
+};
+
 
 /*---------------------------- Variables ----------------------------*/
 let currentTetromino = getRandomTetromino()
@@ -49,6 +58,7 @@ let currentPosition
 let gameIntervalId 
 let spawnIntervalId
 let gameIsOver = false
+let score
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
 let gameMessage = document.getElementById('message')
@@ -74,6 +84,7 @@ function init() {
     createBoard()
     startGameLoop()
     currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+    score = 0
     render()
     spawnIntervalId = setInterval(queueRandomeTetromino, 3000)
   }

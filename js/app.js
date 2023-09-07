@@ -58,7 +58,10 @@ let endBtn = document.getElementById('end-button')
 document.addEventListener('keydown', handleKeyPress)
 startBtn.addEventListener('click', () => {
   clearInterval(gameIntervalId)
+  startBtn.style.display = 'none'
+  endBtn.style.display = 'inline'
   init()
+
 })
 endBtn.addEventListener('click', resetGame)
 /*-------------------------------- Functions --------------------------------*/
@@ -341,3 +344,25 @@ function shiftColorsDown(fromRow) {
   }
 }
 
+function resetGame() {
+  // Clear the game interval
+  clearInterval(gameIntervalId)
+
+  // Reset game-related variables
+  currentTetromino = getRandomTetromino()
+  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  gameBoard.length = 0
+  for (let row = 0; row < rows; row++) {
+    gameBoard.push(Array(columns).fill(0))
+  }
+
+  // Clear the board's visual representation
+  const cells = document.querySelectorAll('.cell')
+  cells.forEach((cell) => {
+    cell.style.backgroundColor = ''
+  })
+
+  // Hide the "End" button and show the "Start" button
+  endBtn.style.display = 'none'
+  startBtn.style.display = 'inline'
+}

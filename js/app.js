@@ -53,12 +53,14 @@ let gameIsOver = false
 const board = document.querySelector('.tetris-board')
 let gameMessage = document.getElementById('message')
 let startBtn = document.getElementById('start-button')
+let endBtn = document.getElementById('end-button')
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
 startBtn.addEventListener('click', () => {
   clearInterval(gameIntervalId)
   init()
 })
+endBtn.addEventListener('click', resetGame)
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
@@ -338,3 +340,4 @@ function shiftColorsDown(fromRow) {
     }
   }
 }
+

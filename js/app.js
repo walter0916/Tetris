@@ -300,11 +300,40 @@ function isRowFull(row) {
 function clearFullRows() {
   for (let row = rows - 1; row >= 0; row--) {
     if (isRowFull(row)) {
+      // Clear the row in the DOM
+      clearRowInDOM(row)
+      // Remove the full row from the game board
+      // Shift colors down
+      shiftColorsDown(row)
       gameBoard.splice(row, 1)
       // Add an empty row at the top
       gameBoard.unshift(Array(columns).fill(0))
       // Increment row to check the same row again
       row++
+    }
+  }
+}
+
+function clearRowInDOM(row) {
+  // Loop through the cells in the specified row and clear their background color
+  for (let col = 0; col < columns; col++) {
+    const cell = document.querySelector(`.row-${row}.col-${col}`)
+    if (cell) {
+      cell.style.backgroundColor = ''
+    }
+  }
+}
+
+function shiftColorsDown(fromRow) {
+  for (let row = fromRow; row >= 1; row--) {
+    for (let col = 0; col < columns; col++) {
+      const cellAbove = document.querySelector(`.row-${row - 1}.col-${col}`);
+      const cellBelow = document.querySelector(`.row-${row}.col-${col}`);
+      
+      if (cellAbove && cellBelow) {
+        const backgroundColor = cellAbove.style.backgroundColor;
+        cellBelow.style.backgroundColor = backgroundColor;
+      }
     }
   }
 }

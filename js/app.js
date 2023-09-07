@@ -380,7 +380,7 @@ function resetGame() {
   endBtn.style.display = 'none'
   startBtn.style.display = 'inline'
   score = 0 
-  score.textContent = score.toString()
+  gameScore.textContent = score.toString()
 }
 
 function updateScore(rowsCleared) {

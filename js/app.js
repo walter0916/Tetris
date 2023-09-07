@@ -48,7 +48,7 @@ let currentTetromino = getRandomTetromino()
 let currentPosition 
 let gameIntervalId 
 let spawnIntervalId
-
+let gameIsOver = false
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
 
@@ -58,11 +58,15 @@ document.addEventListener('keydown', handleKeyPress)
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
-  createBoard()
-  startGameLoop()
-  // startSpawnInterval()
-  currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
-  render()
+  if (gameIsOver === true){
+    return
+  } else {
+    createBoard()
+    startGameLoop()
+    currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+    render()
+    setInterval(queueRandomeTetromino, 5000)
+  }
 }
 
 init()
@@ -88,20 +92,19 @@ function startGameLoop() {
     if (canMoveDown(currentTetromino, currentPosition)) {
       clearPreviousPosition(currentTetromino, currentPosition)
       currentPosition.row++
-      updateBoard(currentTetromino, currentPosition, currentTetromino.color)
-      
-    } else if (isGameOver(currentTetromino, currentPosition)) {
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color)     
+    } else {
+      if (isGameOver(currentTetromino, currentPosition)) {
         clearInterval(gameIntervalId)
-        return
+          return
       } else {
         setCurrentTetrominoFromQueue()
-        
+        clearFullRows()
         console.log(gameBoard)
-      }
+      } 
+    } 
   }, 1000)
 }
-setInterval(queueRandomeTetromino, 5000)
-
 
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
@@ -117,12 +120,11 @@ function queueRandomeTetromino () {
 function setCurrentTetrominoFromQueue() {
   currentTetromino = tetrominoQueue.shift()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  clearFullRows()
   updateBoard(currentTetromino,currentPosition,currentTetromino.color)
 }
 
 function updateBoard(tetromino, position, tetrominoColor) {
-  // Clear the previous position of the tetromino
-  // clearPreviousPosition(tetromino, position)
   // Iterate through the tetromino's shape
   for (let row = 0; row < tetromino.shape.length; row++) {
     for (let col = 0; col < tetromino.shape[row].length; col++) {
@@ -130,10 +132,8 @@ function updateBoard(tetromino, position, tetrominoColor) {
         // Calculate the position of the cell on the game board
         const boardRow = position.row + row
         const boardCol = position.col + col
-
         // Find the corresponding cell element in the DOM
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`)
-
         // Update the cell's class to set the background color
         if (cell) {
           cell.style.backgroundColor = tetrominoColor
@@ -176,12 +176,10 @@ function isGameOver(tetromino, position) {
         console.log('gameoverloop')
         if (
           boardRow < 0 ||                 
-          // boardRow >= rows ||             
-          // boardCol < 0 ||                  
-          // boardCol >= columns ||         
-          isCellOccupied(boardRow, boardCol)  
+          (boardRow === 0 && gameBoard[boardRow][boardCol] === 1) 
         ) {
           console.log('game is over')
+          gameIsOver = true
           return true
         }     
       }

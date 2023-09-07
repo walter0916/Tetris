@@ -287,3 +287,24 @@ function canMoveRight(currentTetromino, currentPosition) {
     }
   }
 }
+
+function isRowFull(row) {
+  for (let col = 0; col < columns; col++) {
+    if (gameBoard[row][col] !== 1) {
+      return false
+    }
+  }
+  return true
+}
+
+function clearFullRows() {
+  for (let row = rows - 1; row >= 0; row--) {
+    if (isRowFull(row)) {
+      gameBoard.splice(row, 1)
+      // Add an empty row at the top
+      gameBoard.unshift(Array(columns).fill(0))
+      // Increment row to check the same row again
+      row++
+    }
+  }
+}

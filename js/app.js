@@ -51,6 +51,7 @@ let spawnIntervalId
 let gameIsOver = false
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
+let gameMessage = document.getElementById('message')
 
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
@@ -65,7 +66,7 @@ function init() {
     startGameLoop()
     currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
     render()
-    setInterval(queueRandomeTetromino, 5000)
+    setInterval(queueRandomeTetromino, 3000)
   }
 }
 
@@ -179,6 +180,7 @@ function isGameOver(tetromino, position) {
           (boardRow === 0 && gameBoard[boardRow][boardCol] === 1) 
         ) {
           console.log('game is over')
+          gameMessage.textContent = 'Game is over'
           gameIsOver = true
           return true
         }     
@@ -329,8 +331,8 @@ function shiftColorsDown(fromRow) {
       const cellBelow = document.querySelector(`.row-${row}.col-${col}`);
       
       if (cellAbove && cellBelow) {
-        const backgroundColor = cellAbove.style.backgroundColor;
-        cellBelow.style.backgroundColor = backgroundColor;
+        const backgroundColor = cellAbove.style.backgroundColor
+        cellBelow.style.backgroundColor = backgroundColor
       }
     }
   }

@@ -58,6 +58,7 @@ let endBtn = document.getElementById('end-button')
 document.addEventListener('keydown', handleKeyPress)
 startBtn.addEventListener('click', () => {
   clearInterval(gameIntervalId)
+  clearInterval(spawnIntervalId)
   startBtn.style.display = 'none'
   endBtn.style.display = 'inline'
   init()
@@ -74,7 +75,7 @@ function init() {
     startGameLoop()
     currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
     render()
-    setInterval(queueRandomeTetromino, 3000)
+    spawnIntervalId = setInterval(queueRandomeTetromino, 3000)
   }
 }
 
@@ -347,6 +348,7 @@ function shiftColorsDown(fromRow) {
 function resetGame() {
   // Clear the game interval
   clearInterval(gameIntervalId)
+  clearInterval(spawnIntervalId)
 
   // Reset game-related variables
   currentTetromino = getRandomTetromino()

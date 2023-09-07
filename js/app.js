@@ -364,7 +364,6 @@ function resetGame() {
   // Clear the game interval
   clearInterval(gameIntervalId)
   clearInterval(spawnIntervalId)
-
   // Reset game-related variables
   currentTetromino = getRandomTetromino()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
@@ -372,16 +371,16 @@ function resetGame() {
   for (let row = 0; row < rows; row++) {
     gameBoard.push(Array(columns).fill(0))
   }
-
   // Clear the board's visual representation
   const cells = document.querySelectorAll('.cell')
   cells.forEach((cell) => {
     cell.style.backgroundColor = ''
   })
-
   // Hide the "End" button and show the "Start" button
   endBtn.style.display = 'none'
   startBtn.style.display = 'inline'
+  score = 0 
+  score.textContent = score.toString()
 }
 
 function updateScore(rowsCleared) {

@@ -41,7 +41,7 @@ const tetrominos = {
 }
 const tetrominoQueue = []
 console.log(tetrominoQueue)
-const gameBoard = Array.from({ length: rows }, () => Array(columns).fill(0));
+const gameBoard = Array.from({ length: rows }, () => Array(columns).fill(0))
 
 /*---------------------------- Variables ----------------------------*/
 let currentTetromino = getRandomTetromino()
@@ -134,6 +134,7 @@ function updateBoard(tetromino, position, tetrominoColor) {
         // Update the cell's class to set the background color
         if (cell) {
           cell.style.backgroundColor = tetrominoColor
+          gameBoard[boardRow][boardRow] = 1
         }
       }
     }
@@ -194,6 +195,7 @@ function clearPreviousPosition(tetromino, position) {
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`)
         if (cell) {
           cell.style.backgroundColor = ''
+          gameBoard[boardRow][boardCol] = 0
         }
       }
     }
@@ -260,5 +262,3 @@ function canMoveRight(currentTetromino, currentPosition) {
     }
   }
 }
-
-

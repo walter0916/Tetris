@@ -64,6 +64,7 @@ const board = document.querySelector('.tetris-board')
 let gameMessage = document.getElementById('message')
 let startBtn = document.getElementById('start-button')
 let endBtn = document.getElementById('end-button')
+let gameScore = document.getElementById('score')
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
 startBtn.addEventListener('click', () => {
@@ -378,4 +379,23 @@ function resetGame() {
   // Hide the "End" button and show the "Start" button
   endBtn.style.display = 'none'
   startBtn.style.display = 'inline'
+}
+
+function updateScore(rowsCleared) {
+  switch (rowsCleared) {
+    case 1:
+      score += scoring.single
+      break
+    case 2:
+      score += scoring.double
+      break
+    case 3:
+      score += scoring.triple
+      break
+    case 4:
+      score += scoring.tetris
+      break
+  }
+  // Update the score display 
+  gameScore.innerText = score.toString()
 }

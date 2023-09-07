@@ -317,6 +317,7 @@ function isRowFull(row) {
 }
 
 function clearFullRows() {
+  let rowsCleared = 0
   for (let row = rows - 1; row >= 0; row--) {
     if (isRowFull(row)) {
       // Clear the row in the DOM
@@ -329,8 +330,10 @@ function clearFullRows() {
       gameBoard.unshift(Array(columns).fill(0))
       // Increment row to check the same row again
       row++
+      rowsCleared++
     }
   }
+  updateScore(rowsCleared)
 }
 
 function clearRowInDOM(row) {
@@ -397,5 +400,5 @@ function updateScore(rowsCleared) {
       break
   }
   // Update the score display 
-  gameScore.innerText = score.toString()
+  gameScore.textContent = score.toString()
 }

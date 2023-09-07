@@ -87,18 +87,21 @@ function startGameLoop() {
   gameIntervalId = setInterval(() => {
     if (canMoveDown(currentTetromino, currentPosition)) {
       clearPreviousPosition(currentTetromino, currentPosition)
-      currentPosition.row++ 
+      currentPosition.row++
       updateBoard(currentTetromino, currentPosition, currentTetromino.color)
-    } else {
-      if (isGameOver(currentTetromino, currentPosition)) {
+      
+    } else if (isGameOver(currentTetromino, currentPosition)) {
         clearInterval(gameIntervalId)
         return
+      } else {
+        setCurrentTetrominoFromQueue()
+        
+        console.log(gameBoard)
       }
-      setCurrentTetrominoFromQueue()
-    }
   }, 1000)
 }
 setInterval(queueRandomeTetromino, 5000)
+
 
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
@@ -114,12 +117,12 @@ function queueRandomeTetromino () {
 function setCurrentTetrominoFromQueue() {
   currentTetromino = tetrominoQueue.shift()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
+  updateBoard(currentTetromino,currentPosition,currentTetromino.color)
 }
 
 function updateBoard(tetromino, position, tetrominoColor) {
   // Clear the previous position of the tetromino
-  clearPreviousPosition(tetromino, position)
-
+  // clearPreviousPosition(tetromino, position)
   // Iterate through the tetromino's shape
   for (let row = 0; row < tetromino.shape.length; row++) {
     for (let col = 0; col < tetromino.shape[row].length; col++) {
@@ -134,12 +137,13 @@ function updateBoard(tetromino, position, tetrominoColor) {
         // Update the cell's class to set the background color
         if (cell) {
           cell.style.backgroundColor = tetrominoColor
-          gameBoard[boardRow][boardRow] = 1
+          gameBoard[boardRow][boardCol] = 1
         }
       }
     }
   }
 }
+
 
 function canMoveDown(currentTetromino, currentPosition) {
   for (let row = 0; row < currentTetromino.shape.length; row++) {
@@ -149,14 +153,17 @@ function canMoveDown(currentTetromino, currentPosition) {
         const newCol = currentPosition.col + col
         if (
           newRow >= rows ||             // Check if it's at the bottom of the board
-          newCol < 0 || newCol >= columns || // Check if it's out of bounds horizontally
-          isCellOccupied(newRow, newCol)  // Check if the cell is occupied
+          // newCol < 0 || newCol >= columns ||// Check if it's out of bounds horizontally
+            // Check if the cell is occupied
+            isCellOccupied(newRow,newCol)
         ) {
+          console.log('it cant move')
           return false
         }
       }
     }
   }
+  console.log('it can move')
   return true
 }
 
@@ -166,25 +173,43 @@ function isGameOver(tetromino, position) {
       if (tetromino.shape[row][col] === 1) {
         const boardRow = position.row + row
         const boardCol = position.col + col
+        console.log('gameoverloop')
         if (
           boardRow < 0 ||                 
-          boardRow >= rows ||             
-          boardCol < 0 ||                  
-          boardCol >= columns ||         
+          // boardRow >= rows ||             
+          // boardCol < 0 ||                  
+          // boardCol >= columns ||         
           isCellOccupied(boardRow, boardCol)  
         ) {
+          console.log('game is over')
           return true
-        }
+        }     
       }
     }
   }
-
   return false
 }
 function isCellOccupied(row, col) {
-  const cell = document.querySelector(`.row-${row}.col-${col}`)
-  return cell && parseInt(cell.textContent) === 1
+  return gameBoard[row][col] === 1 && !isCellPartOfTetromino(row, col, currentTetromino, currentPosition);
 }
+
+
+function isCellPartOfTetromino(row, col, tetromino, position) {
+  for (let tetrominoRow = 0; tetrominoRow < tetromino.shape.length; tetrominoRow++) {
+    for (let tetrominoCol = 0; tetrominoCol < tetromino.shape[tetrominoRow].length; tetrominoCol++) {
+      if (
+        tetromino.shape[tetrominoRow][tetrominoCol] === 1 &&
+        row === position.row + tetrominoRow &&
+        col === position.col + tetrominoCol
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+
 
 function clearPreviousPosition(tetromino, position) {
   for (let row = 0; row < tetromino.shape.length; row++) {

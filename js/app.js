@@ -52,10 +52,13 @@ let gameIsOver = false
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
 let gameMessage = document.getElementById('message')
-
+let startBtn = document.getElementById('start-button')
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
-
+startBtn.addEventListener('click', () => {
+  clearInterval(gameIntervalId)
+  init()
+})
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
@@ -69,8 +72,6 @@ function init() {
     setInterval(queueRandomeTetromino, 3000)
   }
 }
-
-init()
 
 
 function render() {

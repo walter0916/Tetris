@@ -175,7 +175,6 @@ function setCurrentTetrominoFromQueue() {
 }
 
 function updateBoard(tetromino, position, tetrominoColor) {
-  // Iterate through the tetromino's shape
   for (let row = 0; row < tetromino.shape.length; row++) {
     for (let col = 0; col < tetromino.shape[row].length; col++) {
       if (tetromino.shape[row][col] === 1) {
@@ -269,7 +268,6 @@ function clearPreviousPosition(tetromino, position) {
 function handleKeyPress(event) {
   switch (event.key) {
     case 'ArrowLeft' :
-      // Check if the tetromino can move left
       if (canMoveLeft(currentTetromino, currentPosition)) {
         clearPreviousPosition(currentTetromino,currentPosition)
         currentPosition.col--
@@ -277,7 +275,6 @@ function handleKeyPress(event) {
       }
       break
     case 'ArrowRight':
-      // Check if the tetromino can move right
       if (canMoveRight(currentTetromino, currentPosition)) {
         clearPreviousPosition(currentTetromino,currentPosition)
         currentPosition.col++
@@ -295,9 +292,9 @@ function canMoveLeft(currentTetromino, currentPosition) {
         const newCol = currentPosition.col + col - 1
 
         if (
-          newRow >= 0 &&               // Check if it's within the top boundary
-          newCol >= 0 &&               // Check if it's within the left boundary
-          !isCellOccupied(newRow, newCol) // Check if the cell is not occupied
+          newRow >= 0 &&            
+          newCol >= 0 &&            
+          !isCellOccupied(newRow, newCol) 
         ) {
           return true
         }
@@ -315,9 +312,9 @@ function canMoveRight(currentTetromino, currentPosition) {
         const newCol = currentPosition.col + col + 1
 
         if (
-          newRow >= 0 &&               // Check if it's within the top boundary
-          newCol < columns &&          // Check if it's within the right boundary
-          !isCellOccupied(newRow, newCol) // Check if the cell is not occupied
+          newRow >= 0 &&               
+          newCol < columns &&         
+          !isCellOccupied(newRow, newCol) 
         ) {
           return true
         }
@@ -340,15 +337,10 @@ function clearFullRows() {
   let rowsCleared = 0
   for (let row = rows - 1; row >= 0; row--) {
     if (isRowFull(row)) {
-      // Clear the row in the DOM
       clearRowInDOM(row)
-      // Remove the full row from the game board
-      // Shift colors down
       shiftColorsDown(row)
       gameBoard.splice(row, 1)
-      // Add an empty row at the top
       gameBoard.unshift(Array(columns).fill(0))
-      // Increment row to check the same row again
       row++
       rowsCleared++
     }
@@ -357,7 +349,6 @@ function clearFullRows() {
 }
 
 function clearRowInDOM(row) {
-  // Loop through the cells in the specified row and clear their background color
   for (let col = 0; col < columns; col++) {
     const cell = document.querySelector(`.row-${row}.col-${col}`)
     if (cell) {
@@ -419,6 +410,5 @@ function updateScore(rowsCleared) {
       score += scoring.tetris
       break
   }
-  // Update the score display 
   gameScore.textContent = score.toString()
 }

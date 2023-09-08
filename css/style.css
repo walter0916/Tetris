@@ -58,7 +58,7 @@ h3 {
   margin-left: 60px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .tetris-board {
     grid-template-columns: repeat(5, 30px);
     grid-template-rows: repeat(10, 30px);
@@ -70,21 +70,35 @@ h3 {
     align-items: center;
     text-align: center;
   }
+  header {
+    border: none;
+    border-radius: 40px;
+    margin: 0 auto;
+    padding: 0;
+    height: 20%;
+    background-color: none;
+  }
+
   h1 {
     font-size: 40px;
-    margin-left: 130px;
+    margin: 0 auto;
   }
   h2 {
-    margin-left: 100px;
+    margin: 0 auto;
+  }
+  h3 {
+    margin: 0 auto;
   }
   .tetris-board {
     margin-left: 90px;
-    width: 70%;
-    height: 60%;
+    width: 40%;
+    height: 40%;
   }
   #start-button, #end-button {
-    margin-bottom: 20px;
-    margin-left: 90px;
+   margin: 0 auto;
+  }
+  #easy-button, #medium-button, #hard-button {
+  display: none;
   }
 }
 
@@ -95,4 +109,19 @@ header {
   padding: 30px;
   height: 300px;
   background-color: #a2d6f9;
+}
+
+.difficulty-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+#easy-button, #medium-button, #hard-button {
+  border: 2px solid black;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#easy-button:hover, #medium-button:hover, #hard-button:hover {
+  background-color: aqua;
 }

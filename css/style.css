@@ -4,63 +4,33 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #d9ed92;
+  background-color: #b4ffff;
   margin-right: 100px;
-  --u: 2.5vmin;
-  --c1: hsl(0deg 0% 0%);
-  --c2: hsl(212deg 4% 9%);
-  --c3: hsl(212deg 7% 36%);
-  --gp: 50%/calc(var(--u) * 5) calc(var(--u) * 10);
-  --bp: calc(var(--u) * -2.5) calc(var(--u) * -5);
-  height: 100vh;
-  --bg: 
-  radial-gradient(circle at 50% 25%, var(--c2) 23%, #fff0 25% 100%) var(--gp), 
-  conic-gradient(from 270deg at 34% 46%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  conic-gradient(from 45deg at 66% 46%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  conic-gradient(from 180deg at 50% 80%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  conic-gradient(from 135deg at 50% 80%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  conic-gradient(from 0deg at 0% 20%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  conic-gradient(from -45deg at 100% 20%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
-  linear-gradient(180deg, var(--c2) 0 4.5%, #fff0 0 45.25%, var(--c2) 0 50%, #fff0 0% 100%) var(--gp), 
-  radial-gradient(circle at 50% 25%, #fff0 0 25%, var(--c2) 26% 32%, #fff0 0 100%) var(--gp), 
-  linear-gradient(165deg, var(--c3) -15%, var(--c1) 44%, #fff0 0 100%) var(--gp), 
-  linear-gradient(180deg, var(--c1) 50%, #fff0 0 100%) var(--gp);
-  background: var(--bg), var(--bg);
-  background-position: 
-  var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), 
-  0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-background-color: var(--c2);
 }
 
 .tetris-board {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  border: 30px solid black;
+  border: 30px solid #0b0c0c;
   background-color: white;
-  --units: 1.5vmax;
-	--brick1: #CC0000;
-	--brick2: #DD0000;
-	--lines: #565656;
-	--gp-ln: 50%/calc(var(--units) * 10) calc(var(--units) * 5);
-	--gp-cn: 50%/calc(var(--units) * 5) calc(var(--units) * 5);
-	height: 100vh;
-	background: 
-		repeating-conic-gradient(from 90deg at 95% 55%, var(--lines) 0% 25%, #fff0 0% 100%) var(--gp-cn), 
-		repeating-linear-gradient(180deg, var(--lines) 0 5%, #fff0 0 50%, var(--lines) 0 55%, var(--brick2) 0 100% ) var(--gp-ln), 
-		repeating-linear-gradient(90deg, var(--brick1) 0 47.5%, var(--lines) 0 50%, var(--brick1) 0 97.5%, var(--lines) 0 100% ) var(--gp-ln);
-    height: 600px;
 }
 
 h1 {
   font-family: 'Press Start 2P', cursive;
   font-size: 50px;
-  margin-right: 50px;
+  margin-left: 10px;
 }
 
 h2 {
   font-family: 'Press Start 2P', cursive;
-  margin-left: 35px;
+  margin-left: 25px;
+}
+h3 {
+  margin-left: 150px;
+  font-size: 50px;
+  margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 #end-button {
@@ -68,21 +38,24 @@ h2 {
 }
 
 #start-button, #end-button {
-  background-color: #f44336;
-  color: #fff;
-  border: none;
+  background-color: #ff746a;
+  color: black;
+  border: 2px solid black;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 20px;
   cursor: pointer;
   border-radius: 5px;
-  outline: none;
-  margin-top: 20px;
 }
 #start-button {
   margin-left: 50px;
 }
+
+#start-button:hover, #end-button:hover {
+  background-color: gray;
+}
+
 #end-button {
-  margin-left: 70px;
+  margin-left: 60px;
 }
 
 @media (max-width: 600px) {
@@ -116,10 +89,10 @@ h2 {
 }
 
 header {
-  border: 30px solid black;
+  border: 30px solid #1360e2;
   border-radius: 40px;
-  margin-right: 30px;
+  margin-right: 120px;
   padding: 30px;
   height: 300px;
-  background-color: white;
+  background-color: #a2d6f9;
 }

@@ -6,33 +6,30 @@ body {
   margin: 0;
   background-color: #d9ed92;
   margin-right: 100px;
+  --u: 2.5vmin;
+  --c1: hsl(0deg 0% 0%);
+  --c2: hsl(212deg 4% 9%);
+  --c3: hsl(212deg 7% 36%);
+  --gp: 50%/calc(var(--u) * 5) calc(var(--u) * 10);
+  --bp: calc(var(--u) * -2.5) calc(var(--u) * -5);
   height: 100vh;
-	--sz: 10px; /*** size ***/
-	--c0: #3a1b0f;
-	--c1: #ffc56f;
-  --c2: #d99838;
-  --c3: #9b5e05;
-  --ts: 50%/ calc(var(--sz) * 12.8) calc(var(--sz) * 22);
-  background:
-		/*bottom*/
-    conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-    conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-		/*bottom dark*/
-		conic-gradient(from 120deg at 50% 74%, var(--c0) 0 120deg, #fff0 0 360deg) var(--ts),
-		/*right*/
-		conic-gradient(from 60deg at 60% 50%, var(--c1) 0 60deg, var(--c2) 0 120deg, #fff0 0 360deg) var(--ts),
-		/*left*/
-		conic-gradient(from 180deg at 40% 50%, var(--c3) 0 60deg, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-		/*top dark*/
-    conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-    conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-    conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-    conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-		/*top*/
-    conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-    conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-		conic-gradient(from -60deg at 50% 41%, var(--c2) 0 60deg, var(--c3) 0 120deg, #fff0 0 360deg) var(--ts),
-		var(--c0) ;
+  --bg: 
+  radial-gradient(circle at 50% 25%, var(--c2) 23%, #fff0 25% 100%) var(--gp), 
+  conic-gradient(from 270deg at 34% 46%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  conic-gradient(from 45deg at 66% 46%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  conic-gradient(from 180deg at 50% 80%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  conic-gradient(from 135deg at 50% 80%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  conic-gradient(from 0deg at 0% 20%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  conic-gradient(from -45deg at 100% 20%, var(--c2) 0 12.5%, #fff0 0 100%) var(--gp), 
+  linear-gradient(180deg, var(--c2) 0 4.5%, #fff0 0 45.25%, var(--c2) 0 50%, #fff0 0% 100%) var(--gp), 
+  radial-gradient(circle at 50% 25%, #fff0 0 25%, var(--c2) 26% 32%, #fff0 0 100%) var(--gp), 
+  linear-gradient(165deg, var(--c3) -15%, var(--c1) 44%, #fff0 0 100%) var(--gp), 
+  linear-gradient(180deg, var(--c1) 50%, #fff0 0 100%) var(--gp);
+  background: var(--bg), var(--bg);
+  background-position: 
+  var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), var(--bp), 
+  0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+background-color: var(--c2);
 }
 
 .tetris-board {
@@ -41,7 +38,20 @@ body {
   grid-template-rows: repeat(20, 30px);
   border: 30px solid black;
   background-color: white;
+  --units: 1.5vmax;
+	--brick1: #CC0000;
+	--brick2: #DD0000;
+	--lines: #565656;
+	--gp-ln: 50%/calc(var(--units) * 10) calc(var(--units) * 5);
+	--gp-cn: 50%/calc(var(--units) * 5) calc(var(--units) * 5);
+	height: 100vh;
+	background: 
+		repeating-conic-gradient(from 90deg at 95% 55%, var(--lines) 0% 25%, #fff0 0% 100%) var(--gp-cn), 
+		repeating-linear-gradient(180deg, var(--lines) 0 5%, #fff0 0 50%, var(--lines) 0 55%, var(--brick2) 0 100% ) var(--gp-ln), 
+		repeating-linear-gradient(90deg, var(--brick1) 0 47.5%, var(--lines) 0 50%, var(--brick1) 0 97.5%, var(--lines) 0 100% ) var(--gp-ln);
+    height: 600px;
 }
+
 h1 {
   font-family: 'Press Start 2P', cursive;
   font-size: 50px;

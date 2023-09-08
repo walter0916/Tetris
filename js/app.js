@@ -79,6 +79,7 @@ startBtn.addEventListener('click', () => {
   easyBtn.style.display = 'none'
   mediumBtn.style.display = 'none'
   hardBtn.style.display = 'none'
+  gameMessage.textContent = ' '
   init()
 
 })
@@ -404,6 +405,8 @@ function resetGame() {
   hardBtn.style.display = 'inline'
   score = 0 
   gameScore.textContent = score.toString()
+  gameIsOver = false
+  gameMessage.textContent = 'Get Ready!'
 }
 
 function updateScore(rowsCleared) {

@@ -66,6 +66,9 @@ let gameMessage = document.getElementById('message')
 let startBtn = document.getElementById('start-button')
 let endBtn = document.getElementById('end-button')
 let gameScore = document.getElementById('score')
+let easyBtn = document.getElementById('easy-button')
+let mediumBtn = document.getElementById('medium-button')
+let hardBtn = document.getElementById('hard-button')
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
 startBtn.addEventListener('click', () => {
@@ -73,20 +76,23 @@ startBtn.addEventListener('click', () => {
   clearInterval(spawnIntervalId)
   startBtn.style.display = 'none'
   endBtn.style.display = 'inline'
+  easyBtn.style.display = 'none'
+  mediumBtn.style.display = 'none'
+  hardBtn.style.display = 'none'
   init()
 
 })
 endBtn.addEventListener('click', resetGame)
 
-document.getElementById("easy-button").addEventListener("click", function () {
+easyBtn.addEventListener("click", function () {
   gameSpeed = 1000 // Change game speed for easy difficulty (1 second)
 })
 
-document.getElementById("medium-button").addEventListener("click", function () {
+mediumBtn.addEventListener("click", function () {
   gameSpeed = 500; // Change game speed for medium difficulty (0.5 seconds)
 })
 
-document.getElementById("hard-button").addEventListener("click", function () {
+hardBtn.addEventListener("click", function () {
   gameSpeed = 250 // Change game speed for hard difficulty (0.25 seconds)
 })
 
@@ -393,6 +399,9 @@ function resetGame() {
   // Hide the "End" button and show the "Start" button
   endBtn.style.display = 'none'
   startBtn.style.display = 'inline'
+  easyBtn.style.display = 'inline'
+  mediumBtn.style.display = 'inline'
+  hardBtn.style.display = 'inline'
   score = 0 
   gameScore.textContent = score.toString()
 }

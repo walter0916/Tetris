@@ -22,6 +22,11 @@ https://walters-tetris.netlify.app/
 
 ---
 
+## Attributions
+
+Found 'Press start 2p' on Google Fonts
+
+---
 ## Next Steps
 
 Add levels to the game and a database to store the high scores. I would also like to change the background to have moving objects as well as depth for a more immersive user experience

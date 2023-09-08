@@ -412,3 +412,4 @@ function updateScore(rowsCleared) {
   }
   gameScore.textContent = score.toString()
 }
+

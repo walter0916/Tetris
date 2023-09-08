@@ -1,8 +1,8 @@
-# Tetris 
+# Anti-Tetris 
 
 <a href="https://imgur.com/9Z83hQD"><img src="https://i.imgur.com/9Z83hQD.png" title="source: imgur.com" /></a>
 
-In Tetris, the player will be prompted to select a difficulty ranging from easy to hard. Then based on that difficulty tetrominos will spawn and fall at a set interval. The objective of the game is to complete rows by placing the tetrominos using the left and right arrow key. The game ends when a new tetromino can no longer spawn without touching an old tetromino 
+This version of Tetris is based on the NES version where rotation is not allowed in order to offer more of a challanege, the player will be prompted to select a difficulty ranging from easy to hard. Then based on that difficulty tetrominos will spawn and fall at a set interval. The objective of the game is to complete rows by placing the tetrominos using the left and right arrow key. The game ends when a new tetromino can no longer spawn without touching an old tetromino
 
 ## Why I Picked This Game 
 

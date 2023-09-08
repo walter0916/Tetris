@@ -6,7 +6,7 @@ const columns = 10
 const tetrominos = {
   I: { 
     shape: [[1,1,1,1]],
-    color: 'cyan'
+    color: 'cyan' 
   },
   I: { 
     shape: [[1],
@@ -360,9 +360,8 @@ function clearRowInDOM(row) {
 function shiftColorsDown(fromRow) {
   for (let row = fromRow; row >= 1; row--) {
     for (let col = 0; col < columns; col++) {
-      const cellAbove = document.querySelector(`.row-${row - 1}.col-${col}`);
-      const cellBelow = document.querySelector(`.row-${row}.col-${col}`);
-      
+      const cellAbove = document.querySelector(`.row-${row - 1}.col-${col}`)
+      const cellBelow = document.querySelector(`.row-${row}.col-${col}`)     
       if (cellAbove && cellBelow) {
         const backgroundColor = cellAbove.style.backgroundColor
         cellBelow.style.backgroundColor = backgroundColor

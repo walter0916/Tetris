@@ -12,8 +12,9 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  border: 30px solid #0b0c0c;
-  background-color: white;
+  border: 20px solid #1360e2;
+  background: linear-gradient(to bottom, #fff, #ddd);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 h1 {
@@ -38,20 +39,22 @@ h3 {
 }
 
 #start-button, #end-button {
-  background-color: #ff746a;
+  background: linear-gradient(to bottom, #ff746a, #e55050);
   color: black;
-  border: 2px solid black;
+  border: none;
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
   border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
 }
 #start-button {
   margin-left: 50px;
 }
 
 #start-button:hover, #end-button:hover {
-  background-color: gray;
+  background: linear-gradient(to bottom, #e55050, #ff746a);
 }
 
 #end-button {
@@ -95,7 +98,7 @@ h3 {
     height: 40%;
   }
   #start-button, #end-button {
-   margin: 0 auto;
+  margin: 0 auto;
   }
   #easy-button, #medium-button, #hard-button {
   display: none;
@@ -103,25 +106,36 @@ h3 {
 }
 
 header {
-  border: 30px solid #1360e2;
-  border-radius: 40px;
-  margin-right: 120px;
-  padding: 30px;
-  height: 300px;
-  background-color: #a2d6f9;
+    background: linear-gradient(to bottom, #a2d6f9, #1360e2);
+    border: 20px solid #1360e2;
+    border-radius: 40px;
+    margin: 0 auto;
+    padding: 30px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
 .difficulty-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 15px;
 }
 #easy-button, #medium-button, #hard-button {
-  border: 2px solid black;
+  background-color: #a2d6f9;
+  color: #000;
+  border: 2px solid #1360e2;
   font-size: 25px;
   cursor: pointer;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.4s ease-in-out;
 }
 
 #easy-button:hover, #medium-button:hover, #hard-button:hover {
   background-color: aqua;
 }
+

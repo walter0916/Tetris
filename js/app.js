@@ -59,6 +59,7 @@ let gameIntervalId
 let spawnIntervalId
 let gameIsOver = false
 let score
+let gameSpeed = 1000; // Default game speed (1 second)
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.tetris-board')
 let gameMessage = document.getElementById('message')
@@ -76,6 +77,19 @@ startBtn.addEventListener('click', () => {
 
 })
 endBtn.addEventListener('click', resetGame)
+
+document.getElementById("easy-button").addEventListener("click", function () {
+  gameSpeed = 1000 // Change game speed for easy difficulty (1 second)
+})
+
+document.getElementById("medium-button").addEventListener("click", function () {
+  gameSpeed = 500; // Change game speed for medium difficulty (0.5 seconds)
+})
+
+document.getElementById("hard-button").addEventListener("click", function () {
+  gameSpeed = 250 // Change game speed for hard difficulty (0.25 seconds)
+})
+
 /*-------------------------------- Functions --------------------------------*/
 // intitialization function to start the game, calls functions to create the board and render 
 function init() {
@@ -87,7 +101,7 @@ function init() {
     currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
     score = 0
     render()
-    spawnIntervalId = setInterval(queueRandomeTetromino, 3000)
+    spawnIntervalId = setInterval(queueRandomeTetromino, 2000)
   }
 }
 
@@ -123,7 +137,7 @@ function startGameLoop() {
         console.log(gameBoard)
       } 
     } 
-  }, 1000)
+  }, gameSpeed)
 }
 
 function getRandomTetromino() {

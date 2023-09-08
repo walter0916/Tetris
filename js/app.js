@@ -8,14 +8,23 @@ const tetrominos = {
     shape: [[1,1,1,1]],
     color: 'cyan'
   },
+  I: { 
+    shape: [[1],
+            [1],
+            [1],
+            [1]],
+    color: 'cyan'
+  },
   J: {
-    shape: [[0,0,1],
-            [1,1,1],],
+    shape: [[0,1],
+            [0,1],
+            [1,1]],
     color: 'blue'
   },
   L: {
-    shape: [[1,0,0],
-            [1,1,1]],
+    shape: [[1,0],
+            [1,0],
+            [1,1]],
     color: 'orange'
   },
   O: {
@@ -33,6 +42,11 @@ const tetrominos = {
             [1,1,1]],
     color: 'purple'
   },
+  T: {
+    shape: [[1,1,1],
+            [0,1,0]],
+    color: 'purple'
+  },
   Z: {
     shape: [[1,1,0],
             [0,1,1]],
@@ -40,15 +54,14 @@ const tetrominos = {
   },
 }
 const tetrominoQueue = []
-console.log(tetrominoQueue)
 
 const gameBoard = Array.from({ length: rows }, () => Array(columns).fill(0))
 
 const scoring = {
-  single: 100,  // Points for clearing a single row
-  double: 300,  // Points for clearing two rows at once
-  triple: 500,  // Points for clearing three rows at once
-  tetris: 800   // Points for clearing four rows at once 
+  single: 100,  
+  double: 300,  
+  triple: 500,
+  tetris: 800   
 };
 
 
@@ -86,19 +99,18 @@ startBtn.addEventListener('click', () => {
 endBtn.addEventListener('click', resetGame)
 
 easyBtn.addEventListener("click", function () {
-  gameSpeed = 1000 // Change game speed for easy difficulty (1 second)
+  gameSpeed = 1000 
 })
 
 mediumBtn.addEventListener("click", function () {
-  gameSpeed = 500; // Change game speed for medium difficulty (0.5 seconds)
+  gameSpeed = 500
 })
 
 hardBtn.addEventListener("click", function () {
-  gameSpeed = 250 // Change game speed for hard difficulty (0.25 seconds)
+  gameSpeed = 250 
 })
 
 /*-------------------------------- Functions --------------------------------*/
-// intitialization function to start the game, calls functions to create the board and render 
 function init() {
   if (gameIsOver === true){
     return
@@ -123,7 +135,6 @@ function createBoard() {
       const cell = document.createElement('div')
       cell.classList.add('cell', `row-${row}`, `col-${col}`)
       board.appendChild(cell)
-      console.log('hi')
     }
   } 
 }
@@ -141,7 +152,6 @@ function startGameLoop() {
       } else {
         setCurrentTetrominoFromQueue()
         clearFullRows()
-        console.log(gameBoard)
       } 
     } 
   }, gameSpeed)
@@ -150,7 +160,6 @@ function startGameLoop() {
 function getRandomTetromino() {
   const tetrominoKeys = Object.keys(tetrominos)
   const randomKey = tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)]
-  console.log('randomizer works')
   return tetrominos[randomKey]
 }
 
@@ -170,12 +179,9 @@ function updateBoard(tetromino, position, tetrominoColor) {
   for (let row = 0; row < tetromino.shape.length; row++) {
     for (let col = 0; col < tetromino.shape[row].length; col++) {
       if (tetromino.shape[row][col] === 1) {
-        // Calculate the position of the cell on the game board
         const boardRow = position.row + row
         const boardCol = position.col + col
-        // Find the corresponding cell element in the DOM
         const cell = document.querySelector(`.row-${boardRow}.col-${boardCol}`)
-        // Update the cell's class to set the background color
         if (cell) {
           cell.style.backgroundColor = tetrominoColor
           gameBoard[boardRow][boardCol] = 1
@@ -193,18 +199,13 @@ function canMoveDown(currentTetromino, currentPosition) {
         const newRow = currentPosition.row + row + 1
         const newCol = currentPosition.col + col
         if (
-          newRow >= rows ||             // Check if it's at the bottom of the board
-          // newCol < 0 || newCol >= columns ||// Check if it's out of bounds horizontally
-            // Check if the cell is occupied
-            isCellOccupied(newRow,newCol)
+          newRow >= rows || isCellOccupied(newRow,newCol)
         ) {
-          console.log('it cant move')
           return false
         }
       }
     }
   }
-  console.log('it can move')
   return true
 }
 
@@ -214,12 +215,10 @@ function isGameOver(tetromino, position) {
       if (tetromino.shape[row][col] === 1) {
         const boardRow = position.row + row
         const boardCol = position.col + col
-        console.log('gameoverloop')
         if (
           boardRow < 0 ||                 
           (boardRow === 0 && gameBoard[boardRow][boardCol] === 1) 
         ) {
-          console.log('game is over')
           gameMessage.textContent = 'Game is over'
           gameIsOver = true
           return true
@@ -382,22 +381,18 @@ function shiftColorsDown(fromRow) {
 }
 
 function resetGame() {
-  // Clear the game interval
   clearInterval(gameIntervalId)
   clearInterval(spawnIntervalId)
-  // Reset game-related variables
   currentTetromino = getRandomTetromino()
   currentPosition = { row: 0, col: Math.floor(columns / 2) - 1 }
   gameBoard.length = 0
   for (let row = 0; row < rows; row++) {
     gameBoard.push(Array(columns).fill(0))
   }
-  // Clear the board's visual representation
   const cells = document.querySelectorAll('.cell')
   cells.forEach((cell) => {
     cell.style.backgroundColor = ''
   })
-  // Hide the "End" button and show the "Start" button
   endBtn.style.display = 'none'
   startBtn.style.display = 'inline'
   easyBtn.style.display = 'inline'

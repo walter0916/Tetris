@@ -4,7 +4,8 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #b4ffff;
+  background-color: #227C9D;
+  background: linear-gradient(to bottom, #227C9D, #A9FFCB);
   margin-right: 100px;
 }
 
@@ -12,8 +13,8 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  border: 20px solid #1360e2;
-  background: linear-gradient(to bottom, #fff, #ddd);
+  border: 20px solid #E01A4F;
+  background: linear-gradient(to bottom, #ECC30B, #F37748);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
@@ -106,8 +107,8 @@ h3 {
 }
 
 header {
-    background: linear-gradient(to bottom, #a2d6f9, #1360e2);
-    border: 20px solid #1360e2;
+    background: linear-gradient(to bottom, #ECC30B, #F37748);
+    border: 20px solid #E01A4F;
     border-radius: 40px;
     margin: 0 auto;
     padding: 30px;

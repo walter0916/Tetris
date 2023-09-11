@@ -281,6 +281,15 @@ function handleKeyPress(event) {
         updateBoard(currentTetromino, currentPosition, currentTetromino.color)
       }
       break
+    case 'ArrowUp':
+      clearPreviousPosition(currentTetromino, currentPosition)
+      rotateTetrominoCounterclockwise(currentTetromino)
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color) 
+      break
+    case 'ArrowDown':
+        clearPreviousPosition(currentTetromino, currentPosition)
+        rotateTetrominoCounterclockwise(currentTetromino)
+        updateBoard(currentTetromino, currentPosition, currentTetromino.color) 
   }
 }
 
@@ -322,6 +331,30 @@ function canMoveRight(currentTetromino, currentPosition) {
       }
     }
   }
+}
+
+function rotateTetrominoClockwise(tetromino) {
+  const numRows = tetromino.shape.length
+  const numCols = tetromino.shape[0].length
+  const newShape = Array.from({ length: numCols }, () => Array(numRows).fill(0))
+  for (let row = 0; row < numRows; row++) {
+    for (let col = 0; col < numCols; col++) {
+      newShape[col][numRows - 1 - row] = tetromino.shape[row][col]
+    }
+  }
+  tetromino.shape = newShape
+}
+
+function rotateTetrominoCounterclockwise(tetromino) {
+  const numRows = tetromino.shape.length
+  const numCols = tetromino.shape[0].length
+  const newShape = Array.from({ length: numCols }, () => Array(numRows).fill(0))
+  for (let row = 0; row < numRows; row++) {
+    for (let col = 0; col < numCols; col++) {
+      newShape[numCols - 1 - col][row] = tetromino.shape[row][col]
+    }
+  }
+  tetromino.shape = newShape
 }
 
 function isRowFull(row) {

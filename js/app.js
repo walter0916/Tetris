@@ -8,13 +8,6 @@ const tetrominos = {
     shape: [[1,1,1,1]],
     color: 'cyan' 
   },
-  I: { 
-    shape: [[1],
-            [1],
-            [1],
-            [1]],
-    color: 'cyan'
-  },
   J: {
     shape: [[0,1],
             [0,1],
@@ -121,6 +114,7 @@ function init() {
     score = 0
     render()
     spawnIntervalId = setInterval(queueRandomeTetromino, 2000)
+    updateNextPiecePreview
   }
 }
 
@@ -144,7 +138,8 @@ function startGameLoop() {
     if (canMoveDown(currentTetromino, currentPosition)) {
       clearPreviousPosition(currentTetromino, currentPosition)
       currentPosition.row++
-      updateBoard(currentTetromino, currentPosition, currentTetromino.color)     
+      updateBoard(currentTetromino, currentPosition, currentTetromino.color) 
+      updateNextPiecePreview()    
     } else {
       if (isGameOver(currentTetromino, currentPosition)) {
         clearInterval(gameIntervalId)
@@ -152,6 +147,7 @@ function startGameLoop() {
       } else {
         setCurrentTetrominoFromQueue()
         clearFullRows()
+        updateNextPiecePreview()
       } 
     } 
   }, gameSpeed)
@@ -444,4 +440,21 @@ function updateScore(rowsCleared) {
   }
   gameScore.textContent = score.toString()
 }
+
+
+function updateNextPiecePreview() {
+  const nextPiecePreview = document.getElementById('next-piece-preview');
+  nextPiecePreview.innerHTML = ''; 
+  const nextTetromino = tetrominoQueue[0]
+  for (let row = 0; row < nextTetromino.shape.length; row++) {
+    for (let col = 0; col < nextTetromino.shape[row].length; col++) {
+      const cell = document.createElement('div')
+      if (nextTetromino.shape[row][col] === 1) {
+        cell.style.backgroundColor = nextTetromino.color
+      }
+      nextPiecePreview.appendChild(cell)
+    }
+  }
+}
+
 

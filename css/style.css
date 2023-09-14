@@ -11,11 +11,12 @@ body {
 
 .tetris-board {
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(20, 30px);
+  grid-template-columns: repeat(10, 60px);
+  grid-template-rows: repeat(20, 60px);
   border: 20px solid #E01A4F;
   background: linear-gradient(to bottom, #ECC30B, #F37748);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  margin-right: 50px;
 }
 
 h1 {
@@ -29,11 +30,22 @@ h2 {
   margin-left: 35px;
 }
 h3 {
-  margin-left: 120px;
+  display: flex;
   font-size: 50px;
-  margin-bottom: 5px;
-  margin-top: 10px;
+  margin: 0 auto;
+  margin-bottom: 0;
+  position: absolute;
+  top: 425px; 
+  margin-left: 1020px;
+  transform: translateX(-50%); 
+  border: 10px solid black;
+  height: 80px;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
 }
+
 
 #end-button {
   display: none;
@@ -140,3 +152,31 @@ header {
   background-color: aqua;
 }
 
+
+.next-piece {
+  border: 10px solid black;
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+  margin-top: 20px;
+  margin-right: 600px;
+  margin-bottom: 150px;
+}
+
+.next-piece h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.next-piece-preview {
+  display: grid;
+  grid-template-columns: repeat(4, 20px); 
+  grid-template-rows: repeat(4, 20px); 
+  gap: 2px; 
+}
+
+.next-piece-preview div {
+  width: 20px; 
+  height: 20px; 
+  border: 1px solid #ccc;
+}
